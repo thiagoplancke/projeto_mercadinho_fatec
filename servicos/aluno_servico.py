@@ -1,4 +1,3 @@
-from sqlalchemy import *
 from base_de_dados.database import engine
 
 from sqlalchemy.orm import sessionmaker
@@ -18,7 +17,8 @@ def consultar_alunos():
         alunos = session.query(Aluno).all()
         if alunos:
             for aluno in alunos :
-                return f"Nome: {aluno.nome} ID:{aluno.id_aluno}"
+                print(f"Nome: {aluno.nome} ID:{aluno.id_aluno}")
+        return "Nenhum aluno cadastrado!"
     finally:   
         session.close()
     
@@ -28,9 +28,15 @@ def consultar_alunos():
 
 def consultar_aluno_por_nome(nome):
     session = Session()
-    aluno = session.query(Aluno).filter_by(nome=nome).first()
-    return f"Nome: {aluno.nome} ID: {aluno.id_aluno}"
+    try:
+        aluno = session.query(Aluno).filter_by(nome=nome).first()
+        if aluno:
+            return f"Nome: {aluno.nome} ID: {aluno.id_aluno}"
+        
+        return "O Aluno não existe."
     
+    finally:
+        session.close()    
     
 
 
