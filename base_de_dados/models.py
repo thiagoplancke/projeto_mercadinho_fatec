@@ -1,7 +1,7 @@
 
 from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy import ForeignKey
-from database import Base
+from .database import Base
 
 
 class Aluno(Base):
